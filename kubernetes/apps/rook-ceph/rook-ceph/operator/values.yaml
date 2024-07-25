@@ -1,0 +1,24 @@
+crds:
+  enabled: true # TODO: disable after first install
+
+currentNamespaceOnly: true
+
+pspEnable: true
+
+enableMetadata: true
+
+logLevel: 0
+sidecarLogLevel: 0
+
+allowUnsupportedVersion: false # TODO: may need to set true for v19
+
+topology:
+  enabled: false # TODO: enable
+  domainLabels:
+  - kubernetes.io/hostname
+  - topology.kubernetes.io/zone
+
+useOperatorHostNetwork: true
+
+monitoring:
+  enabled: false # TODO: enable
