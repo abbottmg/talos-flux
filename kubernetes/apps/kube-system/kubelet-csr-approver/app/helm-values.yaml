@@ -1,0 +1,3 @@
+---
+providerRegex: ^(calcite|lazulite|pyrite)$
+bypassDnsResolution: true

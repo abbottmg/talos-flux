@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.7.5
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.30.2
+
+clusterName: "lapislazuli"
+endpoint: https://192.168.100.100:6443
+clusterPodNets:
+  - "10.244.0.0/16"
+clusterSvcNets:
+  - "10.96.0.0/16"
+additionalApiServerCertSans: &sans
+  - "192.168.100.100"
+  - 127.0.0.1 # KubePrism
+  - "192.168.100.100"
+  - "amarillo-1"
+  - "amarillo-1.wot"
+  - "lapislazuli.wot"
+additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "calcite"
+    ipAddress: "192.168.100.10"
+    installDiskSelector:
+      serial: "00:02.2"
+    talosImageURL: factory.talos.dev/installer/DEADBEEF
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "00:00:de:ad:00:01"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "192.168.100.100"
+  - hostname: "lazulite"
+    ipAddress: "192.168.100.20"
+    installDiskSelector:
+      serial: "00:02.2"
+    talosImageURL: factory.talos.dev/installer/DEADBEEF
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "00:0c:ad:be:00:05"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "192.168.100.100"
+  - hostname: "pyrite"
+    ipAddress: "192.168.100.30"
+    installDiskSelector:
+      serial: "00:02.2"
+    talosImageURL: factory.talos.dev/installer/DEADBEEF
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "00:00:be:ef:00:02"
+        dhcp: true
+        mtu: 1500
+        vip:
+          ip: "192.168.100.100"
+
+# Global patches
+patches:
+  - # Force nameserver
+    |-
+    machine:
+      network:
+        nameservers:
+          - 192.168.100.1/24
+  - # Configure NTP
+    |-
+    machine:
+      time:
+        disabled: false
+        servers:
+          - pool.ntp.org
+          - time.nist.gov
+          - ntppub.tamu.edu
+          - time.apple.com
+  - "@./patches/global/cluster-discovery.yaml"
+  - "@./patches/global/containerd.yaml"
+  - "@./patches/global/disable-search-domain.yaml"
+  - "@./patches/global/hostdns.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/openebs-local.yaml"
+  - "@./patches/global/sysctl.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/api-access.yaml"
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"
+    - "@./patches/controller/etcd.yaml"
+
