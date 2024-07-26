@@ -22,22 +22,3 @@ spec:
   - apiVersion: apiextensions.k8s.io/v1
     kind: CustomResourceDefinition
     name: cephblockpools.ceph.rook.io
----
-apiVersion: kustomize.toolkit.fluxcd.io/v-1beta2
-kind: Kustomization
-metadata:
-  name: rook-ceph-cluster
-  namespace: flux-system
-spec:
-  dependsOn:
-  - name: "rook-ceph"
-  interval: 28m
-  path: ./kubernetes/apps/rook-ceph/rook-ceph/rook-ceph-cluster
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *name
-  prune: true # remove any elements later removed from the above path
-  timeout: 8m # if not set, this defaults to interval duration, which is 1h
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
