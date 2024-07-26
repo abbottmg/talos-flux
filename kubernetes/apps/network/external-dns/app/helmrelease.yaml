@@ -25,23 +25,19 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    provider: cloudflare
+    provider: linode
     env:
-      - name: CF_API_TOKEN
+      - name: LINODE_TOKEN
         valueFrom:
           secretKeyRef:
             name: external-dns-secret
             key: api-token
     extraArgs:
-      - --ingress-class=external
-      - --cloudflare-proxied
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      - --crd-source-kind=DNSEndpoint
     policy: sync
     sources: ["crd", "ingress"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["abbott.fun"]
     serviceMonitor:
       enabled: true
     podAnnotations:
