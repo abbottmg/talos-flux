@@ -5,7 +5,15 @@ metadata:
   name: rook-ceph
   namespace: rook-ceph
 spec:
-  interval: 10m
+  interval: 30m
+  timeout: 10m
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1 # keep trying to remediate
+    crds: CreateReplace # Upgrade CRDs on package update
   chart:
     spec:
       chart: rook-ceph
