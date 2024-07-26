@@ -9,7 +9,7 @@ spec:
   timeout: 10m
   install:
     remediation:
-      retries: -1
+      retries: 3
   upgrade:
     remediation:
       retries: -1 # keep trying to remediate
