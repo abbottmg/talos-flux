@@ -8,10 +8,6 @@ spec:
     email: "matthew@abbott.codes"
     privateKeySecretRef:
       name: letsencrypt-production
-    solvers:
-      - http01:
-        ingress:
-          class: nginx
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -23,7 +19,3 @@ spec:
     email: "matthew@abbott.codes"
     privateKeySecretRef:
       name: letsencrypt-staging
-    solvers:
-      - http01:
-        ingress:
-          class: nginx
