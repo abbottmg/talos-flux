@@ -8,3 +8,5 @@ configMapGenerator:
   - name: rook-ceph-operator-values
     files:
       - values.yaml=./values.yaml
+configurations:
+  - kustomizeconfig.yaml
