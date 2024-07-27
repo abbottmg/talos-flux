@@ -10,7 +10,7 @@ enableMetadata: true
 logLevel: 0
 sidecarLogLevel: 0
 
-allowUnsupportedVersion: false # TODO: may need to set true for v19
+allowUnsupportedVersion: true # TODO: may need to set true for v19
 
 topology:
   enabled: false # TODO: enable
