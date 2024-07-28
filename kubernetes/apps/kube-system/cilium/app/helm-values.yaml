@@ -3,7 +3,7 @@ image:
   # @schema
   # type: [null, string]
   # @schema
-  tag: "latest"
+  tag: stable
   pullPolicy: "Always"
   # cilium-digest
   digest: ""
