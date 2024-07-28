@@ -3,7 +3,6 @@ image:
   # @schema
   # type: [null, string]
   # @schema
-  repository: "ghcr.io/abbottmg/cilium/cilium"
   tag: "latest"
   pullPolicy: "Always"
   # cilium-digest
