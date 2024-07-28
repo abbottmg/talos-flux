@@ -65,3 +65,21 @@ spec:
         matchExpressions:
          - {key: none-key, operator: NotIn, values: ['never-used-value']}
          # TODO: add appropriate key for flagging services to advertise once ready to deploy
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "lb-mark"
+spec:
+  blocks:
+  - cidr: 10.96.1.0/24 # maybe expand to start: 1.0 end 7.0
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "lb-mina"
+spec:
+  blocks:
+  - cidr: 10.96.8.0/24 # maybe expand 8.0/21
+
+#TODO: additional pool names: talent, troy, drachma, tod, duella, candy, tank, arroba
