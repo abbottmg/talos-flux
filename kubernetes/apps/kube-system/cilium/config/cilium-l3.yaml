@@ -1,24 +1,67 @@
 ---
-# https://docs.cilium.io/en/latest/network/l2-announcements
 apiVersion: cilium.io/v2alpha1
-kind: CiliumL2AnnouncementPolicy
+kind: CiliumBGPClusterConfig
 metadata:
-  name: l2-policy
+  name: cilium-bgp
 spec:
-  loadBalancerIPs: true
-  # NOTE: interfaces might need to be set if you have more than one active NIC on your hosts
-  interfaces:
-    - eno4
-  #   - ^eth[0-9]+
   nodeSelector:
     matchLabels:
-      kubernetes.io/os: linux
+      topology.kubernetes.io/zone: amarillo
+      topology.rook.io/datacenter: "1"
+  bgpInstances:
+  - name: "instance-1101"
+    localASN: 1101
+    peers:
+    - name: "peer-1101-calcite"
+      peerASN: 1101
+      peerAddress: 10.0.1.1
+      peerConfigRef:
+        name: "cilium-peer"
+    - name: "peer-1101-lazulite"
+      peerASN: 1101
+      peerAddress: 10.0.2.1
+      peerConfigRef:
+        name: "cilium-peer"
+    - name: "peer-1101-pyrite"
+      peerASN: 1101
+      peerAddress: 10.0.3.1
+      peerConfigRef:
+        name: "cilium-peer"
 ---
 apiVersion: cilium.io/v2alpha1
-kind: CiliumLoadBalancerIPPool
+kind: CiliumBGPPeerConfig
 metadata:
-  name: l2-pool
+  name: cilium-peer
 spec:
-  allowFirstLastIPs: "Yes"
-  blocks:
-    - cidr: "192.168.200.0/24"
+  timers:
+    holdTimeSeconds: 9
+    keepAliveTimeSeconds: 3
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: "bgp"
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  name: bgp-advertisements
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: PodCIDR
+    - advertisementType: Service
+      service:
+        addresses:
+        - ClusterIP
+        - ExternalIP
+        - LoadbalancerIP
+      selector:             # <-- select all services
+        matchExpressions:
+         - {key: none-key, operator: NotIn, values: ['never-used-value']}
+         # TODO: add appropriate key for flagging services to advertise once ready to deploy
