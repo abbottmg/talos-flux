@@ -8,6 +8,9 @@ image:
   # cilium-digest
   digest: ""
   useDigest: false
+preflight:
+  enabled: true
+# upgradeCompatibility: 1.16
 MTU: 9000 # leaving at 0 was "discovering" an MTU of UINT32(INT16(-1))
 autoDirectNodeRoutes: true
 bpf:
