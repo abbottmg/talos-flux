@@ -11,13 +11,8 @@ image:
   useDigest: false
 MTU: 9000 # leaving at 0 was "discovering" an MTU of UINT32(INT16(-1))
 autoDirectNodeRoutes: true
-bgp:
-  enabled: true
-  announce:
-    loadbalancerIP: true
-    podCIDR: true
 bpf:
-  masquerade: true # Required to be false to work with Talos `.machine.features.hostDNS.forwardKubeDNSToHost`
+  masquerade: false # Required to be false to work with Talos `.machine.features.hostDNS.forwardKubeDNSToHost`
 cgroup:
   automount:
     enabled: false
