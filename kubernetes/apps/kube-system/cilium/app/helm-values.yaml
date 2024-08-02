@@ -10,6 +10,8 @@ image:
   useDigest: false
 MTU: 9000 # leaving at 0 was "discovering" an MTU of UINT32(INT16(-1))
 autoDirectNodeRoutes: true
+bgpControlPlane:
+  enabled: true
 bpf:
   masquerade: false # Required to be false to work with Talos `.machine.features.hostDNS.forwardKubeDNSToHost`
 cgroup:
