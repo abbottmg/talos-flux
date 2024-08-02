@@ -14,17 +14,17 @@ spec:
     peers:
     - name: "peer-100-calcite"
       peerASN: 100
-      peerAddress: 10.0.100.10
+      peerAddress: 192.168.100.10
       peerConfigRef:
         name: "cilium-peer"
     - name: "peer-100-lazulite"
       peerASN: 100
-      peerAddress: 10.0.100.20
+      peerAddress: 192.168.100.20
       peerConfigRef:
         name: "cilium-peer"
     - name: "peer-100-pyrite"
       peerASN: 100
-      peerAddress: 10.0.100.30
+      peerAddress: 192.168.100.30
       peerConfigRef:
         name: "cilium-peer"
 ---
