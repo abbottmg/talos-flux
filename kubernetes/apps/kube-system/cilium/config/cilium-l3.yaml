@@ -11,22 +11,7 @@ spec:
   bgpInstances:
   - name: "instance-1101"
     localASN: 1101
-    peers:
-    - name: "peer-100-calcite"
-      peerASN: 100
-      peerAddress: 192.168.100.10
-      peerConfigRef:
-        name: "cilium-peer"
-    - name: "peer-100-lazulite"
-      peerASN: 100
-      peerAddress: 192.168.100.20
-      peerConfigRef:
-        name: "cilium-peer"
-    - name: "peer-100-pyrite"
-      peerASN: 100
-      peerAddress: 192.168.100.30
-      peerConfigRef:
-        name: "cilium-peer"
+  peers: []
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
@@ -54,6 +39,12 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.10"
+      peers:
+      - name: "peer-100-calcite"
+        peerASN: 100
+        peerAddress: 192.168.100.10
+        peerConfigRef:
+          name: "cilium-peer"
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPNodeConfigOverride
@@ -63,6 +54,12 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.20"
+      peers:
+      - name: "peer-100-lazulite"
+        peerASN: 100
+        peerAddress: 192.168.100.20
+        peerConfigRef:
+          name: "cilium-peer"
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPNodeConfigOverride
@@ -72,6 +69,12 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.30"
+      peers:
+      - name: "peer-100-pyrite"
+        peerASN: 100
+        peerAddress: 192.168.100.30
+        peerConfigRef:
+          name: "cilium-peer"
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
