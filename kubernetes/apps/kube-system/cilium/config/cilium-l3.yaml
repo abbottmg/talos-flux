@@ -54,6 +54,7 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.10"
+      localPort: 1790
       peers:
       - name: "peer-100-calcite"
         localAddress: 192.168.100.14
@@ -66,6 +67,7 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.20"
+      localPort: 1790
       peers:
       - name: "peer-100-calcite"
         localAddress: 192.168.100.24
@@ -78,6 +80,7 @@ spec:
   bgpInstances:
     - name: "instance-1101"
       routerID: "192.168.200.30"
+      localPort: 1790
       peers:
       - name: "peer-100-calcite"
         localAddress: 192.168.100.34
