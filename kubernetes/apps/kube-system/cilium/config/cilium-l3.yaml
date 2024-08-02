@@ -47,6 +47,33 @@ spec:
           advertise: "bgp"
 ---
 apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPNodeConfigOverride
+metadata:
+  name: calcite
+spec:
+  bgpInstances:
+    - name: "instance-1101"
+      routerID: "192.168.200.10"
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPNodeConfigOverride
+metadata:
+  name: lazulite
+spec:
+  bgpInstances:
+    - name: "instance-1101"
+      routerID: "192.168.200.20"
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPNodeConfigOverride
+metadata:
+  name: pyrite
+spec:
+  bgpInstances:
+    - name: "instance-1101"
+      routerID: "192.168.200.30"
+---
+apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
 metadata:
   name: bgp-advertisements
