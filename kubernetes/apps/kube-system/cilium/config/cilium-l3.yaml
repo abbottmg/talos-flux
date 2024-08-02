@@ -60,7 +60,7 @@ spec:
         addresses:
         - ClusterIP
         - ExternalIP
-        - LoadbalancerIP
+        - LoadBalancerIP
       selector:             # <-- select all services
         matchExpressions:
          - {key: none-key, operator: NotIn, values: ['never-used-value']}
